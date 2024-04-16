@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Account App</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Bank Account App</h2>
+  <button class="button" onclick="deposit()">Deposit $100</button>
+  <button class="button" onclick="withdraw()">Withdraw $50</button>
+  <div id="output"></div>
+</div>
+
+<script>
+  class BankAccount {
+    constructor(accountNumber, ownerName, balance) {
+      this.accountNumber = accountNumber;
+      this.ownerName = ownerName;
+      this.balance = balance;
+    }
+
+    deposit(amount) {
+      this.balance += amount;
+      this.displayAccountInfo();
+    }
+
+    withdraw(amount) {
+      if (amount > this.balance) {
+        console.log("Insufficient funds");
+      } else {
+        this.balance -= amount;
+        this.displayAccountInfo();
+      }
+    }
+
+    getBalance() {
+      return this.balance;
+    }
+
+    displayAccountInfo() {
+      const output = document.getElementById("output");
+      output.innerHTML = `
+        <p>Account Number: ${this.accountNumber}</p>
+        <p>Owner Name: ${this.ownerName}</p>
+        <p>Balance: $${this.balance}</p>
+      `;
+    }
+  }
+
+  // Create two instances of BankAccount
+  const account1 = new BankAccount(1001, "John Doe", 700);
+  const account2 = new BankAccount(1002, "Jane Smith", 500);
+
+  function deposit() {
+    account1.deposit(100);
+  }
+
+  function withdraw() {
+    account1.withdraw(50);
+  }
+
+  // Initial display
+  account1.displayAccountInfo();
+</script>
+
+</body>
+</html>
